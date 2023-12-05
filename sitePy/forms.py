@@ -1,7 +1,7 @@
 from flask_wtf import FlaskForm
 from wtforms import StringField, PasswordField, SubmitField
 from wtforms.validators import DataRequired, Email, EqualTo, ValidationError
-from sitePy.models import user
+from sitePy.models import Usuarios
 
 class form_login(FlaskForm):
     username = StringField("username", validators=[DataRequired()])
@@ -15,6 +15,6 @@ class form_newaccount(FlaskForm):
     confirmButton = SubmitField("register")
 
     def validate_username(self, username):
-        tester = user.query.filter_by(username=username.data).first() # Testa se o usuario existe na database
+        tester = Usuarios.query.filter_by(username=username.data).first() # Testa se o usuario existe na database
         if tester:
             return ValidationError("Existing user")

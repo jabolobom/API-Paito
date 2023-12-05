@@ -1,9 +1,8 @@
 from sitePy import app, database, bcrypt
 from flask import render_template, url_for, redirect
 from sitePy.forms import form_login, form_newaccount
-from sitePy.models import user, foto
+from sitePy.models import Usuarios, foto
 from flask_login import login_required, login_user, logout_user, current_user
-
 
 @app.route("/")
 def home():
@@ -13,7 +12,7 @@ def home():
 def pagetwo():
     login = form_login()
     if login.validate_on_submit():
-        usuario = user.query.filter_by(username=login.username.data).first()
+        usuario = Usuarios.query.filter_by(username=login.username.data).first()
         if usuario and bcrypt.check_password_hash(usuario.passw, login.passw.data):
             login_user(usuario)
             return redirect(url_for("after", nome=usuario.username))
@@ -27,7 +26,7 @@ def newaccount():
     if new.validate_on_submit():
 
         senha = bcrypt.generate_password_hash(new.passw.data)
-        usuario = user(username=new.username.data, passw=senha)
+        usuario = Usuarios(username=new.username.data, passw=senha)
 
         database.session.add(usuario)
         database.session.commit()
