@@ -8,11 +8,12 @@
     <h2>NOVA CONTA: </h2>
 
     <form method="POST">
+<!-- ??? -->
     {{ form.csrf_token }}
 
         {{ form.username.label() }}
         {{ form.username() }}
-
+<!-- formulario, usa os atributos do objeto como elementos? (WTF?) -->
         {{ form.passw.label() }}
         {{ form.passw() }}
 
@@ -20,7 +21,7 @@
         {{ form.confirmation_passw() }}
 
         {{ form.confirmButton() }}
-
+<!--  funciona -->
     </form>
 </head>
 <body>
